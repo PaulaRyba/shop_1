@@ -10,7 +10,7 @@ Shop::Application.routes.draw do
   end
   resources :products, :except => :show
 
-  root to: 'welcome#index'
+  root to: 'products#index'
 
 
   # Example of regular route:

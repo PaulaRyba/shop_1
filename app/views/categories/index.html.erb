@@ -1,9 +1,10 @@
-<h1>Categories</h1>
+        <div class="large-12 columns">
+        <h1>Categories</h1>
 <%= link_to 'New Category', new_category_path %>
 <table>
 <thead>
 <tr>
-<th>Name</th>
+<th>Title</th>
 <th></th>
 <th></th>
 <th></th>
@@ -13,7 +14,7 @@
 <tbody>
 <% @categories.each do |category| %>
 <tr>
-<td><%= category.name %></td>
+<td><%= category.title %></td>
 <td><%= link_to 'Show', category %></td>
 <td><%= link_to 'Edit', edit_category_path(category) %></td>
 <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -21,3 +22,4 @@
 <% end %>
 </tbody>
 </table>
+</div>

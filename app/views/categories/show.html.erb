@@ -1,14 +1,25 @@
-<p id="notice"><%= notice %></p>
 
-<h1><%= @category.name %><small><%= link_to 'Back', categories_path %> |<%= link_to 'Edit', edit_category_path(@category) %></small></h1>
 
-    <% @category.products.each do |product| %>
 
-        <h3><%= link_to product.title, [product.category, product] %></h3>
-        <h6>Written by <a href="#">Rybałke</a> on <%= product.created_at %></h6>
-        <%= link_to 'Edit', edit_product_path(product) %> |<%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <p><%= product.content %></p>
+        <div class="large-12 columns">
+        <p id="notice"><%= notice %></p>
+        <h1><%= @category.title %><small><%= link_to 'Back', categories_path %> |<%= link_to 'Edit', edit_category_path(@category) %></small></h1>
+          <div class="row">
+            <% @category.products.each do |product| %>
+            <div class="large-4 small-6 columns">
+              <img src="http://placehold.it/1000x1000&text=Thumbnail">
 
-      <hr />
+              <div class="panel">
+                <h5><%= link_to product.title, product_path(product) %></h5>
+                <h6 class="subheader">$<%= product.price %></h6>
+              </div>
+            </div>
+            <% end %>
 
-    <% end %>
+       
+          </div>
+
+    <!-- End Thumbnails -->
+
+
+        </div>

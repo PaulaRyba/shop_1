@@ -1,13 +1,27 @@
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @product.text %>
-</p>
 
+
+  <!-- Side Bar -->
+
+        <div class="large-4 columns">
+
+          <img src="http://placehold.it/500x500&text=Logo">
+
+          <div class="hide-for-small panel">
+            <h3><%= @product.title %></h3>
+            <h5 class="subheader">Category: <%= link_to @product.category.title, category_path(@product.category) %></h5>
+            <h5 class="subheader">$<%= @product.price %></h5>
+          </div>
+<%= link_to 'Destroy', product_path(@product),
+                    method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', products_path %>
 | <%= link_to 'Edit', edit_product_path(@product) %>
+        </div>
 
+    <!-- End Side Bar -->
+        <div class="large-8 columns">
+          <div class="row">
+  <%= @product.text %>
+
+
+</div>
+</div>
