@@ -1,0 +1,16 @@
+<%= link_to 'New Product', new_admin_product_path %>
+    <% @products.each do |product| %>
+    <article>
+
+        <h3><%= link_to product.title, [:admin, product] %></h3>
+       <%= link_to 'Edit', edit_admin_product_path(product) %> |<%= link_to 'Destroy', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <p><%= product.text %></p>
+
+      </article>
+
+      <hr />
+
+    <% end %>
+
+
+

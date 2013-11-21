@@ -45,7 +45,15 @@
             <section class="top-bar-section">
               <!-- Right Nav Section -->
               <ul class="right">
+                <% if user_signed_in? %>
+                <li><a href="#">Logged As: <%= current_user.email %></a></li>
+                <li><%= link_to "Admin", admin_path  %></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
+                <% else %>
+                 <li><%= link_to "Sign In", new_user_session_path %></li>
+                 <% end %>
                 <li class="divider"></li>
+
                 <li class="has-dropdown">
                   <a href="#">Categories</a>
                   <ul class="dropdown">
@@ -62,6 +70,12 @@
           </nav>
           <!-- End Top Bar -->
         </div>
+        <div class="large-9 columns" role="content">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+    
+        </div>
+
       </div>
 
     <!-- End Navigation -->
@@ -70,7 +84,7 @@
 
       <div class="row">
 
- <%= yield %>
+      <%= yield %>
 
 
     

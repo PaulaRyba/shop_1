@@ -1,0 +1,17 @@
+<h1>Comments</h1>
+<% @posts.each do |post| %>
+
+<h2><%= link_to post.title, admin_post_path(post) %></h2>
+<table>
+<tbody>
+<% post.comments.each do |comment| %>
+<tr>
+<td><%= comment.name %></td>
+<td><%= render 'comment' %></td>
+<td><%= link_to 'Destroy', admin_comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<% end %>

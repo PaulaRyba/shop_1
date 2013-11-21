@@ -1,4 +1,5 @@
 Shop::Application.routes.draw do
+  devise_for :users
   resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -12,7 +13,12 @@ Shop::Application.routes.draw do
 
   root to: 'products#index'
 
+  namespace :admin do
+    get '/' => "main#index"
+    resources :categories
+    resources :products
 
+  end 
   # Example of regular route:
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
