@@ -18,17 +18,29 @@ class Admin::ProductsController < AdminController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = Product.new
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to [:admin,@product], notice: 'Product was successfully created.' }
-        format.json { render action: 'show', status: :created, location: [:admin,@product] }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+      begin
+        product_service(@product).process(params[:product][:title], params[:product][:text], params[:product][:price], params[:product][:category_id])
+        redirect_to [:admin, @product]
+      rescue ProductService::ProductError
+        flash.now[:notice]=  'Something went wrong'
+        render 'new' 
+      rescue ProductService::TitleEmpty
+        flash.now[:notice]=  'Title is empty'
+        render 'new'
+      rescue ProductService::TextNotValid
+        flash.now[:notice]= 'Text is empty or too short'
+        render 'new'
+      rescue ProductService::PriceNotValid
+        flash.now[:notice]=  'Price is empty or below 0'
+        render 'new'
+      rescue ProductService::CategoryNotValid
+        flash.now[:notice]= 'Category is empty'
+        render 'new'
       end
-    end
+    
+
   end
 
 
@@ -62,5 +74,9 @@ class Admin::ProductsController < AdminController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:title, :text, :price, :category_id)
+    end
+
+    def product_service(product)
+      ProductService.new(product)
     end
 end

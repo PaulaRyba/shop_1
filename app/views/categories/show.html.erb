@@ -3,7 +3,7 @@
 
         <div class="large-12 columns">
         <p id="notice"><%= notice %></p>
-        <h1><%= @category.title %><small><%= link_to 'Back', categories_path %> |<%= link_to 'Edit', edit_category_path(@category) %></small></h1>
+        <h1><%= @category.title %><small><%= link_to 'Back', categories_path %> </small></h1>
           <div class="row">
             <% @category.products.each do |product| %>
             <div class="large-4 small-6 columns">
