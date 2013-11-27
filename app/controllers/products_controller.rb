@@ -4,14 +4,30 @@ class ProductsController < ApplicationController
 	end
 
 	def create
-  		@product = Product.new(params[:product].permit(:title, :text,:price,:category_id))
- 
-  		if @product.save
-    		redirect_to @product
-  		else
-   			render 'new'
-  		end
-	end
+  		@product = Product.new
+
+      begin
+        product_service(@product).process(params[:product][:title], params[:product][:text], params[:product][:price], params[:product][:category_id])
+        redirect_to @product
+      rescue ProductService::ProductError
+        flash.now[:notice]=  'Something went wrong'
+        render 'new' 
+      rescue ProductService::TitleEmpty
+        flash.now[:notice]=  'Title is empty'
+        render 'new'
+      rescue ProductService::TextNotValid
+        flash.now[:notice]= 'Text is empty or too short'
+        render 'new'
+      rescue ProductService::PriceNotValid
+        flash.now[:notice]=  'Price is empty or below 0'
+        render 'new'
+      rescue ProductService::CategoryNotValid
+        flash.now[:notice]= 'Category is empty'
+        render 'new'
+      end
+    
+
+  end
 
 	def show
   		@product = Product.find(params[:id])
@@ -49,6 +65,9 @@ class ProductsController < ApplicationController
     		params.require(:product).permit(:title, :text, :price, :category_id)
   		end
 
+    def product_service(product)
+      ProductService.new(product)
+    end
   
 
 end
